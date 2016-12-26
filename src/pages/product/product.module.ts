@@ -1,4 +1,4 @@
-import { NgModule } 			      from '@angular/core';
+import { NgModule, ModuleWithProviders }            from '@angular/core';
 import { IonicModule } 			    from 'ionic-angular';
 
 import { ProductListPage } 		  from './product-list/product-list';
@@ -7,7 +7,7 @@ import { ProductService }       from './product.service';
 import { ProductResource }      from './product.resource';
 
 @NgModule({
-  imports:      [ 
+  imports:      [
     IonicModule.forRoot(ProductListPage),
     IonicModule.forRoot(ProductDetailsPage)
   ],
@@ -20,4 +20,13 @@ import { ProductResource }      from './product.resource';
     ProductDetailsPage
   ]
 })
-export class ProductModule {}
+export class ProductModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: ProductModule,
+      providers: [
+        ProductResource
+      ]
+    };
+  }
+}
