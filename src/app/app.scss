@@ -18,9 +18,26 @@
 
 
 ion-nav .scroll-content{
-	background: #f8f8f8;
+	background : #f8f8f8;
 }
 
 .img-loaded + ion-spinner{
-  display:none;
+	display    : none;
+}
+
+ion-spinner.main {
+	display    : block;
+	width      : 60px;
+	height     : 60px;
+	top        : 40vh;
+	margin     : auto;
+}
+
+ion-col[width-50]{
+	padding    : 0;
+}
+
+ion-card ion-img {
+    display: block !important;
+    width: 100% !important;
 }

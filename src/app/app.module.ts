@@ -1,28 +1,26 @@
 import { NgModule, ErrorHandler } from '@angular/core';
+import { ResourceModule }         from 'ng2-resource-rest';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
-import { ProductModule } from '../pages/product/product.module';
+import { ProductModule }          from '../pages/product/product.module';
 
-import { MyApp } from './app.component';
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
+import { MyApp }                  from './app.component';
+
+
 
 
 @NgModule({
   declarations: [
-    MyApp,
-    Page1,
-    Page2
+    MyApp
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    ResourceModule.forRoot(),
     ProductModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    Page1,
-    Page2
+    MyApp
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

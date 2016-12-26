@@ -11,7 +11,7 @@
 	  </button>
 	  <ion-title>Produtos</ion-title>
 	  <ion-buttons start>
-      <button ion-button icon-only color="royal"  (click)="goUsersSearch()">
+      <button ion-button icon-only color="royal"  (click)="goProductsSearch()">
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
@@ -19,26 +19,43 @@
 </ion-header>
 
 
-<ion-content padding>
-	<ion-refresher (ionRefresh)="doRefresh($event)">
+<ion-content >
+	<ion-refresher (ionRefresh)="doRefresh($event)" [pullMin]="90">
     <ion-refresher-content
       pullingText="Puxe para atualizar"
       refreshingText="Atualizando...">
     </ion-refresher-content>
   </ion-refresher>
   <ion-spinner class="main" *ngIf="showSpinner"></ion-spinner>
-  <ion-list>
-    <button ion-item *ngFor="let user of users" (press)="presentActionSheet()" (click)="goUsersDetails(user.login)">
-      <ion-avatar item-left>
-        <ion-img [src]="user.avatar_url"></ion-img>
-        <ion-spinner></ion-spinner>
-      </ion-avatar>
-      <h2>{{ user.login }} </h2>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
-    </button>
-  </ion-list>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-   <ion-infinite-scroll-content></ion-infinite-scroll-content>
- </ion-infinite-scroll>
+        
+  
+
+  <ion-grid>
+  <ion-row wrap>
+    <ion-col width-50  *ngFor="let product of products" >
+
+    <ion-card class="margin"       
+      (press)="presentActionSheet()" 
+      (click)="goProductsDetails(product.login)">
+
+      <img [src]="picture" />
+      <ion-card-content>
+        <ion-card-title>
+          R$ {{product.price}}
+        </ion-card-title>
+        <p>
+          {{product.id}} {{product.name}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+ <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+
 </ion-content>

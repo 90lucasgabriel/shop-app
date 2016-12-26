@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component } 		from '@angular/core';
+import { NavController } 	from 'ionic-angular';
 
 /*
   Generated class for the ProductDetails page.
@@ -8,8 +8,8 @@ import { NavController } from 'ionic-angular';
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-product-details',
-  templateUrl: 'product-details.html'
+  selector    : 'page-product-details',
+  templateUrl : 'product-details.html'
 })
 export class ProductDetailsPage {
 
