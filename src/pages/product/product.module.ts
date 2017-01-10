@@ -27,19 +27,10 @@ import { ProductResource }                from './product.resource';
 export class ProductModule {
   static forRoot(): ModuleWithProviders {
     return {
-<<<<<<< HEAD
       ngModule  : ProductModule,
       providers : [
-=======
-      ngModule: ProductModule,
-      providers: [
->>>>>>> f67ba845fcc6e86b7114aaa65d8e53a07ab8e4bc
         ProductResource
       ]
     };
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> f67ba845fcc6e86b7114aaa65d8e53a07ab8e4bc
