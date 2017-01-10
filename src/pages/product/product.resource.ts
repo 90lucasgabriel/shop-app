@@ -8,7 +8,6 @@ import { QueryInput }               from '../query-input.model';
 import { Product }                  from './product.model';
 
 
-
 @Injectable()
 @ResourceParams({
   add2Provides : false,
