@@ -1,23 +1,36 @@
-import { NgModule } 			      from '@angular/core';
-import { IonicModule } 			    from 'ionic-angular';
+import { NgModule, ModuleWithProviders }  from '@angular/core';
+import { IonicModule }                    from 'ionic-angular';
 
-import { ProductListPage } 		  from './product-list/product-list';
-import { ProductDetailsPage } 	from './product-details/product-details';
-import { ProductService }       from './product.service';
-import { ProductResource }      from './product.resource';
+import { ProductListPage }                from './product-list/product-list';
+import { ProductDetailsPage }             from './product-details/product-details';
+import { ProductSearchPage }              from './product-search/product-search';
+
+import { ProductResource }                from './product.resource';
 
 @NgModule({
-  imports:      [ 
+  imports:      [
     IonicModule.forRoot(ProductListPage),
-    IonicModule.forRoot(ProductDetailsPage)
+    IonicModule.forRoot(ProductDetailsPage),
+    IonicModule.forRoot(ProductSearchPage),
   ],
   declarations: [
     ProductListPage,
-    ProductDetailsPage
+    ProductDetailsPage,
+    ProductSearchPage
   ],
   exports: [
     ProductListPage,
-    ProductDetailsPage
+    ProductDetailsPage,
+    ProductSearchPage
   ]
 })
-export class ProductModule {}
+export class ProductModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule  : ProductModule,
+      providers : [
+        ProductResource
+      ]
+    };
+  }
+}

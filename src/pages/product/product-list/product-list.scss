@@ -1,3 +1,16 @@
 page-product-list {
+	.card-md{
+		margin     : 5px !important;
+		width      : auto !important;
+		position   : relative;
+	}
 
+	ion-card img , ion-card ion-img{
+		min-height : 100px !important;
+		max-height : 170px !important;
+	}
+
+	div.spinner{
+  		height     : 120px;
+	}
 }

@@ -1,28 +1,48 @@
-import { Component } 		from '@angular/core';
-import { Injectable } 		from '@angular/core';
+import { Component } 		    from '@angular/core';
+import { Injectable } 		  from '@angular/core';
 import 'rxjs/add/operator/map';
 
+import { QueryInput }       from '../query-input.model';
+import { Product } 			    from './product.model';
 import { ProductResource } 	from './product.resource';
 
 
 @Injectable()
 export class ProductService {
-  private data;
-	
-  constructor(private productRes : ProductResource) {}
+  private product  : Product;
+  private products : Array<Product>;
+  constructor(private productRes: ProductResource) {}
 
-  public query(){
-    /*return new Promise( resolve => {
-      this.productRes.query(page)
-        .map(response => response.json())
+  public query(queryInput: QueryInput): Promise<Array<Product>>{
+    return new Promise( resolve => {
+      this.productRes.query(queryInput).$observable
         .subscribe( data => {
-          this.data = data.data;
-          resolve(this.data);
+          this.products = data;
+          resolve(this.products);
         })
-    })*/
-    console.log('service', this.productRes.query());
-    return this.productRes.query();
+    });
   }
+
+  public get(id): Promise<Product>{
+  	return new Promise( resolve => {
+  		this.productRes.get(id).$observable
+  		.subscribe( data => {
+  			this.product = data;
+  			resolve(this.product);
+  		})
+  	});
+  }
+
+  public search(data): Promise<Array<Product>>{
+    return new Promise( resolve => {
+      this.productRes.search(data).$observable
+        .subscribe( data => {
+          this.products = data;
+          resolve(this.products);
+        })
+    });
+  }
+
 
 }
 

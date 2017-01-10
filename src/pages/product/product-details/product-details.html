@@ -1,18 +1,71 @@
-<!--
-  Generated template for the ProductDetails page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>productDetails</ion-title>
+<ion-header>  
+  <ion-navbar color="primary">
+	  <ion-buttons start>      
+      <button ion-button icon-only color="royal">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-only color="royal">
+        <ion-icon name="share"></ion-icon>
+      </button>
+      <button ion-button icon-only color="royal">
+        <ion-icon name="cart"></ion-icon> 
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <div class="spinner main" *ngIf="showSpinner">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <div *ngIf="!showSpinner">
+    <ion-slides pager>
+      <ion-slide *ngFor="let picture of pictures">
+        <ion-img [src]="picture.url"></ion-img>
+        <div class="spinner">
+          <ion-spinner></ion-spinner>
+        </div> 
+      </ion-slide>
+    </ion-slides>
+    
+
+    <ion-card class="margin">
+
+      <ion-card-content>
+        <ion-card-title>
+          #{{product?.id}} | {{product?.name}}
+        </ion-card-title>
+        <h1 class="text-center">
+          R$ {{product?.price}}
+        </h1>
+
+        <hr />
+        <ion-grid>
+          <ion-row>          
+            <ion-col width-50 text-center>
+              coluna 1
+            </ion-col>
+            <ion-col width-50 text-center>
+              coluna 2
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+        <hr />
+        <p>
+          {{ product?.description }}
+          {{ product?.description }}
+          {{ product?.description }}
+          {{ product?.description }}
+          {{ product?.description }}
+          {{ product?.description }}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
 
 </ion-content>

@@ -21,23 +21,53 @@ ion-nav .scroll-content{
 	background : #f8f8f8;
 }
 
-.img-loaded + ion-spinner{
+
+
+//SPINNER -----------------------------------
+.img-loaded + div.spinner{
 	display    : none;
 }
 
-ion-spinner.main {
-	display    : block;
-	width      : 60px;
-	height     : 60px;
-	top        : 40vh;
+div.spinner{
+	position   : absolute;
 	margin     : auto;
+	z-index    : 1;
+	text-align : center;
+	top        : 0;
+	left       : 0;
+	bottom     : 0;
+	right      : 0;
 }
 
+div.spinner ion-spinner{
+	width      : 20%;
+}
+
+//INDIVIDUAL
+div.spinner.main, div.spinner.main ion-spinner{
+	height     : 100vh !important;
+}
+
+
+
+
+
+
+
+//OTHERS ---------------------------------
 ion-col[width-50]{
 	padding    : 0;
 }
 
 ion-card ion-img {
-    display: block !important;
-    width: 100% !important;
+	display    : block !important;
+	width      : 100% !important;
+}
+
+.text-center{
+	text-align : center;
+}
+
+ion-buttons button{
+	padding    : 10px !important;
 }

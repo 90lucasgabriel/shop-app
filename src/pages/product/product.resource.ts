@@ -1,29 +1,50 @@
-import {Injectable}     from '@angular/core';
-import {Resource, ResourceParams, ResourceAction, ResourceMethod} from 'ng2-resource-rest';
-import {RequestMethod}  from '@angular/http';
+import { Injectable, Injector }                    from '@angular/core';
+import { RequestMethod, Http, Request, Response }  from '@angular/http';
+import { Resource, ResourceParams, ResourceAction, ResourceMethod } from 'ng2-resource-rest';
+import { Observable }               from 'rxjs';
 
-import { AppConfig }    from '../../app/app.config';
-import { Product }      from './product.model';
+import { AppConfig }                from '../../app/app.config';
+import { QueryInput }               from '../query-input.model';
+import { Product }                  from './product.model';
 
-interface IQueryInput {
-  page?     : number;
-  perPage?  : number;
-  dateFrom? : string;
-  dateTo?   : string;
-  isRead?   : string;
-}
+
 
 @Injectable()
 @ResourceParams({
-  url: 'https://randomuser.me/api/?results=10'
-  //url: AppConfig.BASE_URL + 'api/clients/products'
+  add2Provides : false,
+  url          : AppConfig.BASE_URL + 'api/clients/products'
 })
 export class ProductResource extends Resource {
 
+  constructor(http: Http, injector: Injector){
+    super(http, injector);
+  }
+
   @ResourceAction({
-    isArray: true
+    isArray: true,
+    params: {'include': 'images'},
+    responseInterceptor: (observable: Observable<Response>): Observable<any> => {
+      return observable.map(res => res.json().data);
+    }
   })
-  query: ResourceMethod<IQueryInput, any[]>;
+  query: ResourceMethod<QueryInput, Array<Product>>;
 
+  @ResourceAction({
+    path: '/{!id}',
+    params: {'include': 'images'},
+    responseInterceptor: (observable: Observable<Response>): Observable<any> => {
+      return observable.map(res => res.json().data);
+    }
+  })
+  get: ResourceMethod<{id: number}, Product>;
 
+  @ResourceAction({
+    isArray: true,
+    path: '/search/{!data}',
+    params: {'include': 'images'},
+    responseInterceptor: (observable: Observable<Response>): Observable<any> => {
+      return observable.map(res => res.json().data);
+    }
+  })
+  search: ResourceMethod<{data: string}, Array<Product>>;
 }

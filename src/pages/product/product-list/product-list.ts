@@ -1,48 +1,82 @@
-import { Component } 		from '@angular/core';
-import { NavController } 	from 'ionic-angular';
-import { AppConfig } 		from '../../../app/app.config';
+import { Component } 		            from '@angular/core';
+import { NavController } 	          from 'ionic-angular';
+import { AppConfig } 		            from '../../../app/app.config';
 
-import { PRODUCT, ProductService } 	from '../product.service';
-/*
-  Generated class for the ProductList page.
+import { QueryInput }               from '../../query-input.model';
+import { Product }                  from '../product.model';
+import { PRODUCT, ProductService }  from '../product.service';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+import { ProductDetailsPage }       from '../product-details/product-details';
+import { ProductSearchPage }        from '../product-search/product-search';
+
+
 @Component({
   selector    : 'page-product-list',
   templateUrl : 'product-list.html',
   providers   : [PRODUCT]
 })
 export class ProductListPage {
-  public  products;
-  public  originalProducts;
-  public  picture = 'http://gloimg.gearbest.com/gb/pdm-product-pic/Electronic/2016/06/17/goods-img/1476918078348098594.jpg';
-  private page    = 1;
+  public  products    : Array<Product>;
+  public  queryInput  : QueryInput     = {
+    page: 1
+  };
+  public showSpinner = true;
+
+
 
 
   constructor(
   	public  navCtrl    : NavController,
   	private $product   : ProductService) {
   	this.query();
+
   }
 
-  public query(){
-	console.log('list', this.$product.query());
+
+
+  public query(): void{
+    this.queryInput.page = 1;
+    this.products        = null;
+
+	  this.$product.query(this.queryInput).then(
+  		data => {
+        this.products    = <Array<Product>> data;
+        this.showSpinner = false;
+  		});
   }
 
-  public doRefresh(refresher) {
-    this.page = 1;
-    this.query();
-    
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-    }, 2000);
+
+
+
+
+  //COMPONENTS ----------------------------------------------------------
+  public doRefresh(refresher): void{
+    this.queryInput.page = 1;
+    this.query();    
+    refresher.complete();
   }
 
-  public doInfinite(infiniteScroll) {
+  public doInfinite(infiniteScroll): void{
+  	this.queryInput.page = this.queryInput.page + 1;
 
+  	this.$product.query(this.queryInput).then(
+  		data => {
+  			this.products = this.products.concat(<Array<Product>> data);
+  			infiniteScroll.complete();
+  		}
+    );  	
+  }
+
+
+
+
+  //NAV ----------------------------------------------------
+  public goProductDetails(productId: number): void{
+    this.navCtrl.push(ProductDetailsPage, {id: productId});
+  }
+
+  public goProductSearch(): void{
+    this.navCtrl.push(ProductSearchPage, {});
   }
 
 }

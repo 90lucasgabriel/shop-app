@@ -16,7 +16,7 @@ import { MyApp }                  from './app.component';
   imports: [
     IonicModule.forRoot(MyApp),
     ResourceModule.forRoot(),
-    ProductModule
+    ProductModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

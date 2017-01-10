@@ -1,6 +1,21 @@
 export interface Product{
-	category_id : number,
+	id			: number,
 	name        : string,
+	price       : number,
 	description : string,
-	price       : number
+	images      : {
+		data    : Array<ProductImage>
+	},
+	created_at  : Object,
+	updated_at  : Object
+}
+
+
+export interface ProductImage{
+	id          : number,
+	url         : string,
+	description : string,
+	index       : number,
+	created_at  : Object,
+	updated_at  : Object
 }

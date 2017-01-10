@@ -1,3 +1,32 @@
 page-product-details {
+	ion-img {
+		min-width: 100%;
+		min-height: 55vh;
+	}
 
+	img{
+	  height: 55vh;
+	  width: auto;
+	  margin: auto;
+	  display: block;
+	}
+
+
+
+	/* SLIDES ---------------------------- */
+	ion-slides{
+		height: 50vh;
+	}
+	.swiper-slide {
+		align-items: baseline;
+	}
+
+	ion-slides img {
+		margin: 0;
+		width: 100% !important;
+	}
+
+	div.spinner{
+  		height     : 0vh;
+	}
 }

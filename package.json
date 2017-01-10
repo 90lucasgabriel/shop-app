@@ -18,7 +18,7 @@
     "@angular/platform-browser-dynamic": "2.2.3",
     "@angular/platform-server": "2.2.3",
     "@ionic/storage": "1.1.6",
-    "ionic-angular": "^2.0.0-rc.4",
+    "ionic-angular": "2.0.0-rc.4-201701091604",
     "ionic-native": "2.2.3",
     "ionicons": "3.0.0",
     "ng2-resource-rest": "^1.7.0",
