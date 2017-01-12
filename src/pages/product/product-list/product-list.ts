@@ -1,6 +1,5 @@
 import { Component } 		            from '@angular/core';
 import { NavController } 	          from 'ionic-angular';
-import { AppConfig } 		            from '../../../app/app.config';
 
 import { QueryInput }               from '../../query-input.model';
 import { Product }                  from '../product.model';

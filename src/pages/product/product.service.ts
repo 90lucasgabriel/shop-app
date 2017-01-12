@@ -1,10 +1,9 @@
-import { Component } 		    from '@angular/core';
-import { Injectable } 		  from '@angular/core';
+import { Injectable }       from '@angular/core';
 import 'rxjs/add/operator/map';
 
 import { QueryInput }       from '../query-input.model';
-import { Product } 			    from './product.model';
-import { ProductResource } 	from './product.resource';
+import { Product }           from './product.model';
+import { ProductResource }   from './product.resource';
 
 
 @Injectable()
@@ -24,13 +23,13 @@ export class ProductService {
   }
 
   public get(id): Promise<Product>{
-  	return new Promise( resolve => {
-  		this.productRes.get(id).$observable
-  		.subscribe( data => {
-  			this.product = data;
-  			resolve(this.product);
-  		})
-  	});
+    return new Promise( resolve => {
+      this.productRes.get(id).$observable
+      .subscribe( data => {
+        this.product = data;
+        resolve(this.product);
+      })
+    });
   }
 
   public search(data): Promise<Array<Product>>{

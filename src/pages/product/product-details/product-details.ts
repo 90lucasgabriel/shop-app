@@ -1,8 +1,6 @@
 import { Component } 					        from '@angular/core';
-import { NavController, NavParams, Slides  } 	from 'ionic-angular';
-import { AppConfig } 		              from '../../../app/app.config';
+import { NavController, NavParams } 	from 'ionic-angular';
 
-import { QueryInput }               	from '../../query-input.model';
 import { Product }                  	from '../product.model';
 import { PRODUCT, ProductService }  	from '../product.service';
 

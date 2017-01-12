@@ -5,28 +5,19 @@ import { Observable }               from 'rxjs';
 
 import { AppConfig }                from '../../app/app.config';
 import { QueryInput }               from '../query-input.model';
-import { Product }                  from './product.model';
+import { User }                     from './user.model';
 
 
 @Injectable()
 @ResourceParams({
   add2Provides : false,
-  url          : AppConfig.BASE_URL + 'api/clients/products'
+  url          : AppConfig.BASE_URL + 'api/clients/users'
 })
-export class ProductResource extends Resource {
+export class UserResource extends Resource {
 
   constructor(http: Http, injector: Injector){
     super(http, injector);
   }
-
-  @ResourceAction({
-    isArray: true,
-    params: {'include': 'images'},
-    responseInterceptor: (observable: Observable<Response>): Observable<any> => {
-      return observable.map(res => res.json().data);
-    }
-  })
-  query: ResourceMethod<QueryInput, Array<Product>>;
 
   @ResourceAction({
     path: '/{!id}',
@@ -35,15 +26,13 @@ export class ProductResource extends Resource {
       return observable.map(res => res.json().data);
     }
   })
-  get: ResourceMethod<{id: number}, Product>;
+  get: ResourceMethod<{id: number}, User>;
 
   @ResourceAction({
-    isArray: true,
-    path: '/search/{!data}',
-    params: {'include': 'images'},
+    path: '/login/{!data}',
     responseInterceptor: (observable: Observable<Response>): Observable<any> => {
       return observable.map(res => res.json().data);
     }
   })
-  search: ResourceMethod<{data: string}, Array<Product>>;
+  login: ResourceMethod<{data: string}, User>;
 }

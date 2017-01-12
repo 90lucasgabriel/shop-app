@@ -13,4 +13,8 @@ page-product-list {
 	div.spinner{
   		height     : 120px;
 	}
+
+	ion-card .spinner-md-crescent circle{
+		stroke     : #FFF !important;
+	}
 }

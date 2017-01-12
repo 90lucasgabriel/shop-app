@@ -1,11 +1,11 @@
 page-product-details {
 	ion-img {
 		min-width: 100%;
-		min-height: 55vh;
+		min-height: 310px;
 	}
 
 	img{
-	  height: 55vh;
+	  height: 310px;
 	  width: auto;
 	  margin: auto;
 	  display: block;
@@ -15,7 +15,7 @@ page-product-details {
 
 	/* SLIDES ---------------------------- */
 	ion-slides{
-		height: 50vh;
+		height: 300px;
 	}
 	.swiper-slide {
 		align-items: baseline;
@@ -27,6 +27,6 @@ page-product-details {
 	}
 
 	div.spinner{
-  		height     : 0vh;
+  		height     : 0px;
 	}
 }

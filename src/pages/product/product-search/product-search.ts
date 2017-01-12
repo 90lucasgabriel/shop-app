@@ -1,7 +1,5 @@
 import { Component, ViewChild } 	  from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
-import { AppConfig } 		       	    from '../../../app/app.config';
+import { NavController }            from 'ionic-angular';
 
 import { QueryInput }               from '../../query-input.model';
 import { Product }                  from '../product.model';
@@ -65,7 +63,7 @@ export class ProductSearchPage {
 
 
   //COMPONENTS ----------------------------------------
-  private ionViewDidEnter(): void{
+  ionViewDidEnter(): void{
      setTimeout(() => {
       this.myInput.setFocus();
     }, 150);     
