@@ -1,3 +1,38 @@
 page-user-login {
+	.white{
+		color               : white !important;
+	}
+
+	div.fixed-content, div.scroll-content {
+		margin-top          : 54px !important;
+		margin-bottom       : 56px !important;
+		background          : #1e488c !important;
+	}
+
+	.button-full {
+		margin              : 0 !important;
+	}
+
+	ion-header, ion-navbar {
+		box-shadow          : none !important;
+	}
+
+	ion-item.item {
+		background          : transparent ;
+	}
+
+	.input-has-focus .label, .input-has-focus, .input-has-value{
+		color               : white !important;
+	}
+
+	.input-has-focus.item-input .item-inner, .input-inner {
+		border-bottom-color : white !important;
+		box-shadow          : inset 0 -1px 0 0 white !important;
+	}
+	
+	div.spinner{
+		height              : calc(0vh + 300px);
+		padding             : 20px;
+	}
 
 }

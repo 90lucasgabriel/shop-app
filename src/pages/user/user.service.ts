@@ -1,16 +1,23 @@
-import { Injectable } 		  from '@angular/core';
+import { Injectable } 		       from '@angular/core';
+import { OAuthService }          from 'angular-oauth2-oidc';
 import 'rxjs/add/operator/map';
 
-import { QueryInput }       from '../query-input.model';
-import { User } 			    from './user.model';
-import { UserResource } 	from './user.resource';
+import { LocalStorage }          from '../../common/services/local-storage';
+
+import { User } 			           from './user.model';
+import { UserResource } 	       from './user.resource';
 
 
 @Injectable()
 export class UserService {
   private user  : User;
-  private users : Array<User>;
-  constructor(private userRes: UserResource) {}
+  //private users : Array<User>;
+
+  constructor(
+    private $oauth        : OAuthService,
+    private $localStorage : LocalStorage,
+    private userRes       : UserResource
+  ) {}
 
 
   public get(id): Promise<User>{
@@ -23,13 +30,18 @@ export class UserService {
   	});
   }
 
-  public login(data): Promise<Array<User>>{
+  public login(data: Object){
     return new Promise( resolve => {
       this.userRes.login(data).$observable
-        .subscribe( data => {
-          //this.users = data;
-          resolve(this.users);
-        })
+        .subscribe( 
+          data => {
+            this.$localStorage.set('token', data);
+            resolve(data);
+          },
+          error => {
+            resolve(error);
+          }
+        )
     });
   }
 

@@ -4,17 +4,69 @@
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>userLogin</ion-title>
+<ion-header no-border>  
+  <ion-navbar color="dark-blue">
+	  <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="goProductList()">
+        <ion-icon name="close"></ion-icon> 
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
-	<button (click)="testSignup()">Test Signup</button>
-    <button (click)="testLogin()">Test Login</button>
-    <button (click)="testLogout()">Test Logout</button>
+<ion-content>
+<div class="spinner main" *ngIf="showSpinner">
+    <ion-spinner></ion-spinner>
+  </div>
+
+<div class="spinner">
+  <ion-grid>
+    <ion-row wrap>
+
+      <ion-col width-50>
+        <button ion-button block icon-left>
+          <ion-icon name="logo-facebook" pull-left></ion-icon>
+          Facebook
+        </button>
+      </ion-col>
+
+      <ion-col width-50>
+        <button ion-button block icon-left color="danger">
+          <ion-icon name="logo-google" pull-left></ion-icon>
+          Google
+        </button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+
+
+  <div class="white">
+    <h3 style="margin-top: 20px">ou</h3>
+  </div>
+
+
+	<ion-item>
+		<ion-label floating color="white">Email</ion-label>
+		<ion-input type="email" color="white"  
+      [(ngModel)]="loginData.username"></ion-input>
+	</ion-item>
+
+	<ion-item>
+		<ion-label floating  color="white">Senha</ion-label>
+		<ion-input type="password" color="white" 
+      [(ngModel)]="loginData.password"></ion-input>
+	</ion-item>
+</div>
+	
+
+
 </ion-content>
+
+<ion-footer>
+	<button ion-button full large icon-only color="dark-blue" (click)="login(loginData)">
+    <ion-icon name="ios-arrow-dropright"></ion-icon>
+  </button>
+</ion-footer>

@@ -1,10 +1,10 @@
 import { Injectable, Injector }     from '@angular/core';
 import { Http, Response }           from '@angular/http';
 import { Resource, ResourceParams, ResourceAction, ResourceMethod } from 'ng2-resource-rest';
+import { RequestMethod }            from '@angular/http';
 import { Observable }               from 'rxjs';
 
 import { AppConfig }                from '../../app/app.config';
-import { QueryInput }               from '../query-input.model';
 import { User }                     from './user.model';
 
 
@@ -14,6 +14,7 @@ import { User }                     from './user.model';
   url          : AppConfig.BASE_URL + 'api/clients/users'
 })
 export class UserResource extends Resource {
+  //private grant_type : string = 'password';
 
   constructor(http: Http, injector: Injector){
     super(http, injector);
@@ -29,10 +30,14 @@ export class UserResource extends Resource {
   get: ResourceMethod<{id: number}, User>;
 
   @ResourceAction({
-    path: '/login/{!data}',
-    responseInterceptor: (observable: Observable<Response>): Observable<any> => {
-      return observable.map(res => res.json().data);
+      method       : RequestMethod.Post,
+      url          : AppConfig.BASE_URL + "oauth/access_token",
+      data         : {
+        client_id     : AppConfig.OAUTH_CLIENT_ID,
+        client_secret : AppConfig.OAUTH_CLIENT_SECRET,
+        grant_type    : "password"
+      }
     }
-  })
-  login: ResourceMethod<{data: string}, User>;
+  )
+  login: ResourceMethod<User, any>;
 }

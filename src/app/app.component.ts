@@ -1,6 +1,11 @@
 import { Component, ViewChild }    from '@angular/core';
 import { Nav, Platform }           from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
+import { OAuthService }            from 'angular-oauth2-oidc';
+
+
+import { AppConfig }               from './app.config';
+import { LocalStorage }            from '../common/services/local-storage';
 
 import { UserLoginPage }           from '../pages/user/user-login/user-login';
 import { ProductListPage }         from '../pages/product/product-list/product-list';
@@ -12,12 +17,13 @@ export class MyApp {
   @ViewChild(Nav) nav : Nav;
   rootPage            : any = ProductListPage;
   pages               : Array<{title: string, component: any}>;
+  public image = this.$localStorage.get('user');
 
-
-  constructor(public platform: Platform) {
+  constructor(
+    public  platform     : Platform,
+    private $localStorage : LocalStorage,
+    private $oauth       : OAuthService) {
     this.initializeApp();
-
-
 
 
     // used for an example of ngFor and navigation
@@ -35,6 +41,9 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+
+    
+    this.$oauth.clientId = AppConfig.OAUTH_CLIENT_ID;
   }
 
   openPage(page) {

@@ -1,8 +1,11 @@
 import { NgModule, ErrorHandler }     from '@angular/core';
 import { ResourceModule }             from 'ng2-resource-rest';
-import { CloudModule } from '@ionic/cloud-angular';
+import { CloudModule }                from '@ionic/cloud-angular';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
+import { OAuthModule }                from 'angular-oauth2-oidc';
+
+import { LocalStorage }               from '../common/services/local-storage';
 import { ProductModule }              from '../pages/product/product.module';
 import { UserModule }                 from '../pages/user/user.module';
 
@@ -18,15 +21,20 @@ import { MyApp }                      from './app.component';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    CloudModule.forRoot(AppConfig.CLOUD_SETTINGS),
+    OAuthModule.forRoot(),
+
     ResourceModule.forRoot(),
     ProductModule.forRoot(),
-    UserModule.forRoot(),
-    CloudModule.forRoot(AppConfig.cloudSettings)
+    UserModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [
+    LocalStorage,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
+  ]
 })
 export class AppModule {}
