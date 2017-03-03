@@ -1,12 +1,13 @@
 import { Component } 		            from '@angular/core';
 import { NavController } 	          from 'ionic-angular';
 
-import { QueryInput }               from '../../query-input.model';
+import { QueryInput }               from '../../../common/models/query-input';
 import { Product }                  from '../product.model';
 import { PRODUCT, ProductService }  from '../product.service';
 
 import { ProductDetailsPage }       from '../product-details/product-details';
 import { ProductSearchPage }        from '../product-search/product-search';
+import { LocalStorage }             from '../../../common/services/local-storage';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { ProductSearchPage }        from '../product-search/product-search';
   providers   : [PRODUCT]
 })
 export class ProductListPage {
+  public facebook = '';
   public  products    : Array<Product>;
   public  queryInput  : QueryInput     = {
     page: 1
@@ -26,7 +28,8 @@ export class ProductListPage {
 
   constructor(
   	public  navCtrl    : NavController,
-  	private $product   : ProductService) {
+  	private $product   : ProductService,
+    private $localStorage: LocalStorage) {
   	this.query();
 
   }
@@ -42,6 +45,8 @@ export class ProductListPage {
         this.products    = <Array<Product>> data;
         this.showSpinner = false;
   		});
+
+
   }
 
 

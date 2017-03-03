@@ -1,13 +1,8 @@
-<!--
-  Generated template for the UserLogin page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
+<!-- HEADER -->
 <ion-header no-border>  
   <ion-navbar color="dark-blue">
 	  <ion-buttons end>
-      <button ion-button icon-only color="royal" (click)="goProductList()">
+      <button ion-button icon-only color="royal" (click)="dismiss()">
         <ion-icon name="close"></ion-icon> 
       </button>
     </ion-buttons>
@@ -15,58 +10,100 @@
 </ion-header>
 
 
+<!-- CONTENT -->
 <ion-content>
-<div class="spinner main" *ngIf="showSpinner">
+  <div class="spinner main" *ngIf="showSpinner">
     <ion-spinner></ion-spinner>
   </div>
 
-<div class="spinner">
-  <ion-grid>
-    <ion-row wrap>
-
-      <ion-col width-50>
-        <button ion-button block icon-left>
-          <ion-icon name="logo-facebook" pull-left></ion-icon>
-          Facebook
-        </button>
-      </ion-col>
-
-      <ion-col width-50>
-        <button ion-button block icon-left color="danger">
-          <ion-icon name="logo-google" pull-left></ion-icon>
-          Google
-        </button>
-      </ion-col>
-
-    </ion-row>
-  </ion-grid>
-
-
-
-  <div class="white">
-    <h3 style="margin-top: 20px">ou</h3>
+  <!-- SEGMENTS TITLE -->
+  <div>
+    <ion-segment [(ngModel)]="action"  color="white">
+      <ion-segment-button value="login">
+        Login
+      </ion-segment-button>
+      <ion-segment-button value="register">
+        Registrar
+      </ion-segment-button>
+    </ion-segment>
   </div>
 
+  
+  <!-- FORMS LOGIN/REGISTER -->
+  <div class="forms">
+    <!-- SOCIAL -->
+    <ion-grid>
+      <ion-row wrap>
+          <button ion-button block icon-left *ngIf="false"
+            (click)="logoutFacebook()">
+            Logout
+          </button>
+        <ion-col width-50>
+          <button ion-button block icon-left
+            (click)="loginFacebook()">
+            <ion-icon name="logo-facebook" pull-left></ion-icon>
+            Facebook
+          </button>
+        </ion-col>
 
-	<ion-item>
-		<ion-label floating color="white">Email</ion-label>
-		<ion-input type="email" color="white"  
-      [(ngModel)]="loginData.username"></ion-input>
-	</ion-item>
+        <ion-col width-50>
+          <button ion-button block icon-left color="danger">
+            <ion-icon name="logo-google" pull-left></ion-icon>
+            Google
+          </button>
+        </ion-col>
 
-	<ion-item>
-		<ion-label floating  color="white">Senha</ion-label>
-		<ion-input type="password" color="white" 
-      [(ngModel)]="loginData.password"></ion-input>
-	</ion-item>
-</div>
-	
+      </ion-row>
+    </ion-grid>
+
+    <div class="white">
+      <h3 style="margin-top: 20px">ou</h3>
+    </div>
 
 
+
+    <!-- LOCAL -->
+    <ion-item>
+      <ion-label floating color="white">Email</ion-label>
+      <ion-input type="email" color="white"  
+        [(ngModel)]="loginData.username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating  color="white">Senha</ion-label>
+      <ion-input type="password" color="white" 
+        [(ngModel)]="loginData.password"></ion-input>
+    </ion-item>
+
+
+
+    <div [ngSwitch]="action">
+  
+      <!-- IF LOGIN -->
+      <div *ngSwitchCase="'login'">
+        <button ion-button full clear large color="white" padding margin 
+          (click)="login(loginData)">
+          Login
+        </button>
+      </div>
+
+
+      <!-- IF REGISTER -->
+      <div *ngSwitchCase="'register'">
+        <ion-item>
+          <ion-label floating  color="white">Confirmar Senha</ion-label>
+          <ion-input type="password" color="white" 
+            [(ngModel)]="loginData.passwordConfirm"></ion-input>
+        </ion-item>
+        
+        <button ion-button full large clear color="white" padding margin
+          (click)="register(loginData)" padding>
+          Registrar
+        </button>
+      </div>
+  
+    </div>
+  
+
+  </div>
 </ion-content>
-
-<ion-footer>
-	<button ion-button full large icon-only color="dark-blue" (click)="login(loginData)">
-    <ion-icon name="ios-arrow-dropright"></ion-icon>
-  </button>
-</ion-footer>

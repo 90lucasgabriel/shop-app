@@ -1,11 +1,6 @@
 page-product-details {
 	ion-img {
 		min-width: 100%;
-		min-height: 120px;
-	}
-
-	ion-slides.main ion-img {
-		min-width: 100%;
 		min-height: 310px;
 	}
 
@@ -19,7 +14,7 @@ page-product-details {
 
 
 	/* SLIDES ---------------------------- */
-	ion-slides.main{
+	ion-slides{
 		height: 300px;
 	}
 	.swiper-slide {

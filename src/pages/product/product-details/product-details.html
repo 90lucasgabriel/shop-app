@@ -20,8 +20,8 @@
     <ion-spinner></ion-spinner>
   </div>
 
-  <div *ngIf="!showSpinner">
-    <ion-slides pager>
+  <div *ngIf="!showSpinner"  class="margin-bottom-30">
+    <ion-slides pager class="main">
       <ion-slide *ngFor="let picture of pictures">
         <ion-img [src]="picture.url"></ion-img>
         <div class="spinner">
@@ -30,16 +30,20 @@
       </ion-slide>
     </ion-slides>
     
+    
 
-    <ion-card class="margin">
+    <ion-card class="margin-0">
 
       <ion-card-content>
-        <ion-card-title>
-          #{{product?.id}} | {{product?.name}}
-        </ion-card-title>
-        <h1 class="text-center">
+        <button ion-button block color="royal">
+          Comprar
+        </button>
+        <h1 class="text-center margin-top-20">
           R$ {{product?.price}}
         </h1>
+        <h2>
+          #{{product?.id}} | {{product?.name}}
+        </h2>
 
         <hr />
         <ion-grid>
@@ -65,7 +69,66 @@
         </p>
       </ion-card-content>
     </ion-card>
+
+
+    <h4 class="margin-10 margin-top-30">
+      Comentários
+    </h4>
+    <ion-card>
+      <ion-list>
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="http://knowledge-commons.com/static/assets/images/avatar.png">
+          </ion-avatar>
+          <h3>Cher</h3>
+          <h5>01/01/2017</h5>
+          <p>Ugha osaidh saoda isdhas doias doaisdha sodiahs doaishd asoidh asdihas doiah doiashd oais hdaoisdh </p>
+        </ion-item>
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="http://knowledge-commons.com/static/assets/images/avatar.png">
+          </ion-avatar>
+          <h3>Cher</h3>
+          <h5>01/01/2017</h5>
+          <p>Ugha osaidh saoda isdhas doias doaisdha sodiahs doaishd asoidh asdihas doiah doiashd oais hdaoisdh </p>
+        </ion-item>
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="http://knowledge-commons.com/static/assets/images/avatar.png">
+          </ion-avatar>
+          <h3>Cher</h3>
+          <h5>01/01/2017</h5>
+          <p>Ugha osaidh saoda isdhas doias doaisdha sodiahs doaishd asoidh asdihas doiah doiashd oais hdaoisdh </p>
+        </ion-item>
+      </ion-list>
+      <div class="margin-10 text-center">
+        <hr />
+        <button ion-button clear block>Todos os Comentários</button>
+      </div>
+    </ion-card>
+  
+
+    <h4 class="margin-10 margin-top-30">
+      Relacionados
+    </h4>
+    <ion-slides  slidesPerView="3" spaceBetween="10">     
+      <ion-slide *ngFor="let picture of pictures">
+
+        <ion-card text-center class="margin-0">
+          <ion-img [src]="picture.url"></ion-img>
+          <ion-card-content text-left>
+            <h3>R$ 100,00</h3>
+            <h4>Produto</h4>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-slide>
+    </ion-slides>
+
+
   </div>
+  
+
 
 
 </ion-content>

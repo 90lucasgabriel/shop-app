@@ -5,7 +5,7 @@ page-user-login {
 
 	div.fixed-content, div.scroll-content {
 		margin-top          : 54px !important;
-		margin-bottom       : 56px !important;
+		/*margin-bottom       : 56px !important;*/
 		background          : #1e488c !important;
 	}
 
@@ -32,6 +32,11 @@ page-user-login {
 	
 	div.spinner{
 		height              : calc(0vh + 300px);
+		padding             : 20px;
+	}
+
+	div.forms{
+		text-align          : center;
 		padding             : 20px;
 	}
 

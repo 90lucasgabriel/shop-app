@@ -22,6 +22,71 @@ ion-nav .scroll-content{
 }
 
 
+/*MARGIN ------------------------------------------*/
+.margin-0{
+	margin           : 0 !important;
+}
+
+.margin-10{
+	margin           : 10px !important;
+}
+
+.margin-top-20{
+	margin-top       : 20px !important;
+}
+
+.margin-top-30{
+	margin-top       : 30px !important;
+}
+
+.margin-bottom-30{
+	margin-bottom    : 30px !important;
+}
+
+ion-card.margin-0{
+	width            : auto !important;
+}
+
+
+
+/*HEADER MENU ---------------------------------*/
+.item-avatar{
+	border           : none;
+	background       : none;
+}
+
+.item-background{
+	background       : url('../assets/avatar-background.jpg');
+	background-color : #f53d3d;
+	padding          : 0;
+}
+
+.item-background.item{
+	border-top       : none;
+}
+
+.item-background-transparency{
+	background-color : rgba(0,0,0,0.1);
+	padding          : 10px;
+}
+
+.item-background-transparency h2,
+.item-background-transparency p{
+	color            : white !important;
+}
+
+h2{
+	font-weight      : bold !important;
+}
+
+ion-item.item-background .item-inner,
+ion-item.item-background .item-inner .input-wrapper,
+ion-item.item-background .item-inner .input-wrapper ion-label{
+	margin: 0 !important;
+	padding-right: 0 !important;
+}
+
+
 
 //SPINNER -----------------------------------
 .img-loaded + div.spinner{

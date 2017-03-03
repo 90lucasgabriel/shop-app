@@ -1,13 +1,11 @@
-import { Component }                        from '@angular/core';
-import { NavController }                    from 'ionic-angular';
-import { Facebook,Toast  }      from 'ionic-native';
-import { OAuthService }                     from 'angular-oauth2-oidc';
+import { Component }             from '@angular/core';
+import { NavController, ViewController, AlertController } from 'ionic-angular';
 
-import { QueryInput }                       from '../../query-input.model';
-import { USER, UserService }                from '../user.service';
+import { LocalStorage }          from '../../../common/services/local-storage';
 
-import { ProductListPage }                  from '../../product/product-list/product-list';
-import { LocalStorage }                     from '../../../common/services/local-storage';
+import { QueryInput }            from '../../../common/models/query-input';
+import { User }                  from '../user.model';
+import { USER, UserService }     from '../user.service';
 
 @Component({
 	  selector           : 'page-user-login',
@@ -15,26 +13,23 @@ import { LocalStorage }                     from '../../../common/services/local
 	  providers          : [USER]
 })
 export class UserLoginPage {
-  public message: string;
-	public message1: any;
-	public message2: any;
-	public image: string;
-  public  loginData: any = {
-	  username           : '',
-	  password           : ''
+  public action    : string = 'login';
+  public loginData : any = {
+	  username           : null,
+	  password           : null,
+	  passwordConfirm    : null,
   };
 
-  public  queryInput: QueryInput = {
-	  page               : 1
-  };
   public showSpinner     = false;
-
+public messages = null;
 
   constructor(
-	  public  navCtrl    : NavController,
-	  private $oauth     : OAuthService,
-    private $localStorage : LocalStorage,
-	  private $user      : UserService) {
+	  public  navCtrl       : NavController,
+	  public  viewCtrl      : ViewController,
+	  public  alertCtrl     : AlertController,
+	  private $localStorage : LocalStorage,
+	  private $user         : UserService) {
+	this.messages= this.$localStorage.get('user');
   }
 
 
@@ -59,31 +54,74 @@ export class UserLoginPage {
 			error => {
 				console.log('Erro Desconhecido', error);
 				this.showSpinner = false;
-			});
+			}
+		);
+	}
+
+	public register(data): void {
+		this.showSpinner = true;
+
+		if(data.password === data.passwordConfirm){
+			this.$user.register(data).then(
+				response => {
+					this.login(data);
+				},
+				error => {
+					console.log('Erro Desconhecido', error);
+					this.showSpinner = false;
+				}
+			);
+		}
+		else{
+			this.showSpinner = false;
+			this.showAlert('Erro', 'Usuário e/ou Senha inválidos.');
+		}
 	}
 
 	public loginFacebook(): void{
-	  	console.log("Facebook");
-		
-		Facebook.login(["email"])
-			.then((result) => {
-		        console.log(result);
-		        Toast.show("I'm a toast", '5000', 'center');
-		        this.message = result.status;
+	  	this.$user.loginFacebook().then(
+	  		login => {
+	  			this.dismiss();
+	  		},
+	  		error => {
+	  			this.showAlert('Erro', 'Login com Facebook falhou.');
+	  		}
+	  	);
+	}
 
-            	this.$localStorage.set('facebook', result);
-            	this.$localStorage.set('user', "http://graph.facebook.com/"+ result.authResponse.userID +"/picture");       	
-		        this.image = "http://graph.facebook.com/"+ result.authResponse.userID +"/picture";
-	   		})
-		
-	  }
+	public logoutFacebook(): void{
+	  	this.$user.logoutFacebook();
+	}
+
+
+
+
+
+  //COMPONENTS ---------------------------------------------
+  public dismiss() {
+	this.viewCtrl.dismiss();
+  }
+
+  public showAlert(title, subtitle) {
+    let alert    = this.alertCtrl.create({
+      title      : title,
+      subTitle   : subtitle,
+      buttons    : ['OK']
+    });
+
+    alert.present();
+  }
+
+
+
 
 
 
   //NAV ----------------------------------------------------
   public goProductList(): void{
-  	this.navCtrl.setRoot(ProductListPage, {}, {animate:true});
+  	this.navCtrl.pop();
   }
+
 
 
 

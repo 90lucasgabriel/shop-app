@@ -2,16 +2,20 @@ import { NgModule, ModuleWithProviders }  from '@angular/core';
 import { IonicModule }                    from 'ionic-angular';
 
 import { LocalStorage }                   from './local-storage';
+import { AuthGuardResource }              from './auth-guard-resource';
 
 @NgModule({
   imports:      [
     IonicModule.forRoot(LocalStorage),
+    IonicModule.forRoot(AuthGuardResource),
   ],
   declarations: [
-    LocalStorage
+    LocalStorage,
+    AuthGuardResource,
   ],
   exports: [
-    LocalStorage
+    LocalStorage,
+    AuthGuardResource,
   ]
 })
 
@@ -20,7 +24,8 @@ export class ServicesModule {
     return {
       ngModule  : ServicesModule,
       providers : [
-        LocalStorage
+        LocalStorage,
+        AuthGuardResource,
       ]
     };
   }

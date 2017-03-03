@@ -1,11 +1,9 @@
 import { Component, ViewChild }    from '@angular/core';
-import { Nav, Platform }           from 'ionic-angular';
+import { Events, Nav, Platform, ModalController, MenuController }           from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-import { OAuthService }            from 'angular-oauth2-oidc';
 
-
-import { AppConfig }               from './app.config';
 import { LocalStorage }            from '../common/services/local-storage';
+import { USER, UserService }       from '../pages/user/user.service';
 
 import { UserLoginPage }           from '../pages/user/user-login/user-login';
 import { ProductListPage }         from '../pages/product/product-list/product-list';
@@ -15,40 +13,97 @@ import { ProductListPage }         from '../pages/product/product-list/product-l
 })
 export class MyApp {
   @ViewChild(Nav) nav : Nav;
-  rootPage            : any = ProductListPage;
+  rootPage            : any    = ProductListPage;
   pages               : Array<{title: string, component: any}>;
-  public image = this.$localStorage.get('user');
+  public userPicture  : string = 'http://knowledge-commons.com/static/assets/images/avatar.png';
+  public userEmail    : string = 'Entre com sua conta';
+  public userName     : string = '';
 
   constructor(
-    public  platform     : Platform,
+    public  events        : Events,
+    public  platform      : Platform,
+    private modalCtrl     : ModalController,
+    private menuCtrl      : MenuController,
     private $localStorage : LocalStorage,
-    private $oauth       : OAuthService) {
+    private $user         : UserService) {
     this.initializeApp();
-
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Login',    component: UserLoginPage},
-      { title: 'Products', component: ProductListPage}
-    ];
-
+    this.events.subscribe('user:login', (value) =>{
+      this.verifyLogin(value);
+    });
   }
 
-  initializeApp() {
+  public initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
-      Splashscreen.hide();
+
     });
 
-    
-    this.$oauth.clientId = AppConfig.OAUTH_CLIENT_ID;
+    this.verifyLogin();
+
+    //this.$user.verifyLogin();
+    /*
+    if(!this.$localStorage.get('userPicture')){
+      if(this.$localStorage.get('userPicture') == 'http://knowledge-commons.com/static/assets/images/avatar.png'){
+        let userPicture = 'http://knowledge-commons.com/static/assets/images/avatar.png';
+        this.$localStorage.set('userPicture', userPicture);
+        this.userPicture = this.$localStorage.get('userPicture');
+      }
+    }
+    */
+
+
+
   }
 
-  openPage(page) {
+  private verifyLogin(value?: boolean): void{
+
+    if(this.$user.isLogged() || value){
+      this.pages = [
+        { title: 'Produtos', component: ProductListPage},
+        { title: 'Sair',     component: null},
+      ];
+
+      this.$user.getByToken().then(
+        userData =>{
+          this.userEmail   = userData.email;
+          this.userName    = userData.first_name + ' ' + userData.last_name==null?'':userData.last_name;
+          this.userPicture = userData.picture;
+        }
+      );
+    }
+    else{
+      this.pages = [
+        { title: 'Products', component: ProductListPage},
+      ]; 
+
+      this.userEmail   = 'Entre com sua conta';
+      this.userName    = '';
+      this.userPicture = 'http://knowledge-commons.com/static/assets/images/avatar.png';
+    }
+  }
+
+
+
+  //NAV ------------------------------------------------------
+  public openPage(page): void {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    if(page.title=='Sair'){
+      this.$user.logout();
+    }
+    else{
+      this.nav.setRoot(page.component);
+    }
   }
+
+  public goAccount(): void{
+    if(this.$user.isLogged()){
+      //this.nav.push(); 
+      this.$user.openLogin();
+    }
+    else{
+      this.$user.openLogin();
+    }
+  }
+
 }

@@ -25,8 +25,13 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashMaintainAspectRatio" value="true"/>
   <preference name="FadeSplashScreenDuration" value="300"/>
-  <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+  <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>
+  <plugin name="cordova-plugin-facebook4" spec="~1.7.4">
+    <variable name="APP_ID" value="1855427244735293"/>
+    <variable name="APP_NAME" value="Shop Ionic 2"/>
+  </plugin>
+  <allow-navigation href="http://192.168.1.103:8000"/>
 </widget>

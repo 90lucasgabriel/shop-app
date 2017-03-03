@@ -12,7 +12,7 @@ import { PRODUCT, ProductService }  	from '../product.service';
 export class ProductDetailsPage {
   public id         : number;
   public product    : Product; 
-  public showSpinner: boolean = true;
+  public showSpinner= true;
   public pictures   : Array<Object>;
 
   constructor(
