@@ -3,13 +3,15 @@ import { Events, Nav, Platform, ModalController, MenuController }           from
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { LocalStorage }            from '../common/services/local-storage';
-import { USER, UserService }       from '../pages/user/user.service';
+import { UserService }             from '../pages/user/user.service';
 
+import { AccountListPage }         from '../pages/account/account-list/account-list';
 import { UserLoginPage }           from '../pages/user/user-login/user-login';
 import { ProductListPage }         from '../pages/product/product-list/product-list';
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [UserService]
 })
 export class MyApp {
   @ViewChild(Nav) nav : Nav;
@@ -27,6 +29,8 @@ export class MyApp {
     private $localStorage : LocalStorage,
     private $user         : UserService) {
     this.initializeApp();
+
+    //Cria o evento que verifica se o usuário está logado
     this.events.subscribe('user:login', (value) =>{
       this.verifyLogin(value);
     });
@@ -64,7 +68,7 @@ export class MyApp {
       ];
 
       this.$user.getByToken().then(
-        userData =>{
+        userData => {
           this.userEmail   = userData.email;
           this.userName    = userData.first_name + ' ' + userData.last_name==null?'':userData.last_name;
           this.userPicture = userData.picture;
@@ -98,12 +102,18 @@ export class MyApp {
 
   public goAccount(): void{
     if(this.$user.isLogged()){
-      //this.nav.push(); 
-      this.$user.openLogin();
+      this.menuCtrl.close();
+      this.nav.push(AccountListPage);
     }
     else{
-      this.$user.openLogin();
+      this.openLogin();
     }
+  }
+
+  public openLogin(): void{
+    this.menuCtrl.close();
+    let modal = this.modalCtrl.create(UserLoginPage);
+    modal.present(); 
   }
 
 }

@@ -9,6 +9,7 @@ export class AuthGuardResource extends Resource {
   private deferredQ: Subscriber<any>[] = [];
   private configListenerSet: boolean = false;
 
+
   getHeaders(methodOptions: any): any {
     let headers = super.getHeaders();
 
@@ -45,6 +46,8 @@ export class AuthGuardResource extends Resource {
         (error: Response) => {
           if (error.status === 401) {
             console.log('401');
+            localStorage.removeItem('token');
+            
             //AuthServiceHelper.token = null;
           }
           console.warn('BaseResource request error', error, request);

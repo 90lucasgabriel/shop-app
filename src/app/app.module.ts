@@ -28,7 +28,8 @@ import { MyApp }                      from './app.component';
 
     ResourceModule.forRoot(),
     ProductModule.forRoot(),
-    UserModule.forRoot()
+    UserModule.forRoot(),
+    AccountModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

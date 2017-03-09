@@ -38,7 +38,7 @@
             (click)="logoutFacebook()">
             Logout
           </button>
-        <ion-col width-50>
+        <ion-col >
           <button ion-button block icon-left
             (click)="loginFacebook()">
             <ion-icon name="logo-facebook" pull-left></ion-icon>
@@ -46,7 +46,7 @@
           </button>
         </ion-col>
 
-        <ion-col width-50>
+        <ion-col width-50 *ngIf="false">
           <button ion-button block icon-left color="danger">
             <ion-icon name="logo-google" pull-left></ion-icon>
             Google

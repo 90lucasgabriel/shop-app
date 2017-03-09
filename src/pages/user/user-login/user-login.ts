@@ -5,12 +5,12 @@ import { LocalStorage }          from '../../../common/services/local-storage';
 
 import { QueryInput }            from '../../../common/models/query-input';
 import { User }                  from '../user.model';
-import { USER, UserService }     from '../user.service';
+import { UserService }           from '../user.service';
 
 @Component({
 	  selector           : 'page-user-login',
 	  templateUrl        : 'user-login.html',
-	  providers          : [USER]
+	  providers          : [UserService]
 })
 export class UserLoginPage {
   public action    : string = 'login';

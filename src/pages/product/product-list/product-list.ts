@@ -4,6 +4,7 @@ import { NavController } 	          from 'ionic-angular';
 import { QueryInput }               from '../../../common/models/query-input';
 import { Product }                  from '../product.model';
 import { PRODUCT, ProductService }  from '../product.service';
+import { UserService }  from '../../user/user.service';
 
 import { ProductDetailsPage }       from '../product-details/product-details';
 import { ProductSearchPage }        from '../product-search/product-search';
@@ -13,7 +14,7 @@ import { LocalStorage }             from '../../../common/services/local-storage
 @Component({
   selector    : 'page-product-list',
   templateUrl : 'product-list.html',
-  providers   : [PRODUCT]
+  providers   : [PRODUCT, UserService]
 })
 export class ProductListPage {
   public facebook = '';
@@ -29,9 +30,9 @@ export class ProductListPage {
   constructor(
   	public  navCtrl    : NavController,
   	private $product   : ProductService,
-    private $localStorage: LocalStorage) {
+    private $localStorage: LocalStorage,
+    public  $user : UserService) {
   	this.query();
-
   }
 
 

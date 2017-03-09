@@ -7,7 +7,6 @@ import { Token }                 from '../../common/models/token';
 import { QueryInput }            from '../../common/models/query-input';
 import { LocalStorage }          from '../../common/services/local-storage';
 
-import { UserLoginPage }         from './user-login/user-login';
 import { User } 			           from './user.model';
 import { UserResource } 	       from './user.resource';
 
@@ -248,12 +247,5 @@ export class UserService {
     alert.present();
   }
 
-  public openLogin(): void{
-    this.menuCtrl.close();
-    let modal = this.modalCtrl.create(UserLoginPage);
-    modal.present(); 
-  }
 
 }
-
-export const USER: Array<any> = [UserResource, UserService];
