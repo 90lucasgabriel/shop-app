@@ -71,7 +71,13 @@ export class MyApp {
         userData => {
           this.userEmail   = userData.email;
           this.userName    = userData.first_name + ' ' + userData.last_name==null?'':userData.last_name;
-          this.userPicture = userData.picture;
+          
+          if(this.userPicture != null){
+            this.userPicture = userData.picture;
+          }
+          else{
+            this.userPicture = 'http://knowledge-commons.com/static/assets/images/avatar.png';
+          }
         }
       );
     }

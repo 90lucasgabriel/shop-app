@@ -75,12 +75,13 @@ export class UserService {
             console.log('loginData2', data);
             this.$localStorage.set('token', loginData);
             this.events.publish('user:login', true);
-            resolve(loginData);
+            //resolve(loginData);
           },
           loginDataError => {
             console.log('loginDataError', loginDataError);
-            this.showAlert('LoginError', JSON.stringify(loginDataError));
-            resolve(loginDataError);
+            //this.showAlert('LoginError', JSON.stringify(loginDataError));
+            this.showAlert('Erro', 'Usuário e/ou senha inválidos.');
+            //resolve(loginDataError);
           }
         )
     });
